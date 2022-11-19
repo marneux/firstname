@@ -1,0 +1,24 @@
+{% extends "front/index.html" %}
+
+{% block content %}
+<table>
+  <tr>
+    <th>Sexe</th>
+    <th>Prénom</th>
+    <th>Validé ?</th>
+    <th>Date du vote</th>
+    <th>Action</th>
+  </tr>
+{% for choice in choices %}
+<tr>
+  <td>{% if choice.firstname.sex == 'F' %}Féminin{% else %}Masculin{% endif %}</td>
+  <td>{{ choice.firstname.firstname }}</td>
+  <td>{{ choice.choice | yesno:"Oui,Non" }}</td>
+  <td>{{ choice.modify_at }}</td>
+  <td><a href="/history/{{ choice.id }}/">Changer mon vote</a></td>
+</tr>
+{% empty %}
+<p>Aucun vote effectué.</p>
+{% endfor %}
+
+{% endblock content %}

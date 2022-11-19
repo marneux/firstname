@@ -1,0 +1,16 @@
+{% extends "front/index.html" %}
+{% block content %}
+{{ firstnames | length }}
+<form method="post" action="">
+  {% csrf_token %}
+  <input type="hidden" name="all_id" value="{{ all_id }}" />
+{% for firstname in firstnames %}
+<label for="id{{ firstname.id | slugify }}">{{ firstname.firstname }}</label>
+<input type="checkbox" id="id{{ firstname.id | slugify }}" name="id{{ firstname.id | slugify }}" value="{{ firstname.id }}" title="{{ firstname.firstname }}" />
+<br />
+{% empty %}
+<p>C'est fini, plus de prénoms en réserve !</p>
+{% endfor %}
+<input type="submit" id="vote" name="vote" value="Je valide !" />
+</form>
+{% endblock content %}
